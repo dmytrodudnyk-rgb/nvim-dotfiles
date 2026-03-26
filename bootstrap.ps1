@@ -42,9 +42,25 @@ scoop bucket add extras 2>$null
 scoop bucket add nerd-fonts 2>$null
 Log-Ok "Buckets added"
 
-Log-Step "Installing tools: git, neovim, ripgrep, fd, lazygit, nodejs..."
-scoop install git neovim ripgrep fd lazygit nodejs
+Log-Step "Installing tools: git, neovim, ripgrep, fd, lazygit, nodejs, fzf..."
+scoop install git neovim ripgrep fd lazygit nodejs fzf
 Log-Ok "All tools installed"
+
+Log-Step "Installing Neovim provider packages..."
+# With Scoop nodejs, npm globals install to %APPDATA%\npm (user-local, no admin needed)
+# Check prefix just in case and redirect if needed
+$npmPrefix = npm config get prefix
+if ($npmPrefix -like "*Program Files*" -or $npmPrefix -like "*system*") {
+    Log-Warn "npm prefix '$npmPrefix' may require admin — redirecting to $env:APPDATA\npm"
+    npm config set prefix "$env:APPDATA\npm"
+}
+npm install -g neovim
+Log-Ok "neovim npm package installed"
+
+# pynvim in an isolated venv (avoids touching system Python packages)
+python -m venv "$HOME\.venv\neovim"
+& "$HOME\.venv\neovim\Scripts\pip" install pynvim
+Log-Ok "pynvim installed (isolated venv at ~/.venv/neovim)"
 
 # ── 3. Nerd Font ─────────────────────────────────────────────────────────────
 Log-Step "Installing JetBrainsMono Nerd Font (required for icons in nvim)..."

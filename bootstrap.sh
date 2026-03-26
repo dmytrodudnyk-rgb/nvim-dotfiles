@@ -97,10 +97,16 @@ case "$OS" in
     log_ok "Node.js $(node --version)"
 
     log_step "Installing Neovim provider packages..."
+    # If npm global prefix is a system path, redirect it to ~/.local to avoid needing sudo
+    NPM_PREFIX="$(npm config get prefix)"
+    if [[ "$NPM_PREFIX" == /usr* ]]; then
+      log_warn "npm global prefix is '$NPM_PREFIX' (requires sudo) — redirecting to ~/.local"
+      npm config set prefix ~/.local
+    fi
     npm install -g neovim
     python3 -m venv ~/.venv/neovim
     ~/.venv/neovim/bin/pip install pynvim
-    log_ok "neovim (npm), pynvim (isolated venv at ~/.venv/neovim)"
+    log_ok "neovim (npm → $(npm config get prefix)), pynvim (isolated venv at ~/.venv/neovim)"
 
     log_step "Installing lazygit (interactive git TUI)..."
     LG_VER="$(curl -fsSL https://api.github.com/repos/jesseduffield/lazygit/releases/latest \
@@ -161,13 +167,27 @@ chmod +x "$HOME/bin/nvim-update"
 
 SHELL_UPDATED=false
 for RC in ~/.bashrc ~/.zshrc; do
-  if [[ -f "$RC" ]] && ! grep -q '"$HOME/bin"' "$RC" 2>/dev/null; then
-    echo 'export PATH="$HOME/bin:$PATH"' >> "$RC"
-    log_ok "Added ~/bin to PATH in $RC"
-    SHELL_UPDATED=true
+  if [[ -f "$RC" ]]; then
+    if ! grep -q '"$HOME/bin"' "$RC" 2>/dev/null; then
+      echo 'export PATH="$HOME/bin:$PATH"' >> "$RC"
+      log_ok "Added ~/bin to PATH in $RC"
+      SHELL_UPDATED=true
+    fi
+    if ! grep -q '"$HOME/.local/bin"' "$RC" 2>/dev/null; then
+      echo 'export PATH="$HOME/.local/bin:$PATH"' >> "$RC"
+      log_ok "Added ~/.local/bin to PATH in $RC"
+      SHELL_UPDATED=true
+    fi
   fi
 done
-[[ "$SHELL_UPDATED" == "false" ]] && log_ok "~/bin already in PATH"
+
+# Fish shell — uses fish_add_path which is idempotent (no duplicate entries)
+if command -v fish &>/dev/null; then
+  fish -c "fish_add_path $HOME/bin $HOME/.local/bin"
+  log_ok "Added ~/bin and ~/.local/bin to fish PATH (fish_user_paths)"
+fi
+
+[[ "$SHELL_UPDATED" == "false" ]] && log_ok "~/bin and ~/.local/bin already in PATH"
 log_ok "nvim-update installed → ~/bin/nvim-update"
 
 # ── 7. Bootstrap plugins via lazy.nvim (headless) ────────────────────────────

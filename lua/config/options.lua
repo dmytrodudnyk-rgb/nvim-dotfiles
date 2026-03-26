@@ -34,4 +34,9 @@ vim.g.loaded_perl_provider = 0  -- Perl not needed
 vim.g.loaded_ruby_provider = 0  -- Ruby not needed
 
 -- Python provider: use isolated venv so pynvim doesn't touch system packages
-vim.g.python3_host_prog = vim.fn.expand("~/.venv/neovim/bin/python3")
+-- Windows uses Scripts/python, Linux/macOS use bin/python3
+if vim.fn.has("win32") == 1 then
+  vim.g.python3_host_prog = vim.fn.expand("~/.venv/neovim/Scripts/python")
+else
+  vim.g.python3_host_prog = vim.fn.expand("~/.venv/neovim/bin/python3")
+end
