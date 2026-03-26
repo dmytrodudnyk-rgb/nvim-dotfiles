@@ -105,8 +105,12 @@ case "$OS" in
     fi
     npm install -g neovim
     python3 -m venv ~/.venv/neovim
-    ~/.venv/neovim/bin/pip install pynvim
-    log_ok "neovim (npm → $(npm config get prefix)), pynvim (isolated venv at ~/.venv/neovim)"
+    if ~/.venv/neovim/bin/pip install pynvim --timeout 15 --retries 1; then
+      log_ok "neovim (npm → $(npm config get prefix)), pynvim (isolated venv at ~/.venv/neovim)"
+    else
+      log_warn "pynvim install failed (network issue?). Run manually when connected: ~/.venv/neovim/bin/pip install pynvim"
+      add_step "Install pynvim manually once network is available: ~/.venv/neovim/bin/pip install pynvim"
+    fi
 
     log_step "Installing lazygit (interactive git TUI)..."
     LG_VER="$(curl -fsSL https://api.github.com/repos/jesseduffield/lazygit/releases/latest \
