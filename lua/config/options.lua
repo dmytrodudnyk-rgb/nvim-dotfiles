@@ -34,11 +34,11 @@ vim.g.loaded_perl_provider = 0  -- Perl not needed
 vim.g.loaded_ruby_provider = 0  -- Ruby not needed
 
 -- Python provider:
---   Windows        → isolated venv (Scripts/python)
---   macOS          → isolated venv (bin/python3), if it exists
---   Linux          → system Python (python3-pynvim installed via apt, no override needed)
+--   Windows  → isolated venv (Scripts/python)
+--   macOS    → isolated venv (bin/python3)
+--   Linux    → system Python (python3-pynvim via apt, no override needed)
 if vim.fn.has("win32") == 1 then
   vim.g.python3_host_prog = vim.fn.expand("~/.venv/neovim/Scripts/python")
-elseif vim.fn.executable(vim.fn.expand("~/.venv/neovim/bin/python3")) == 1 then
+elseif vim.fn.has("mac") == 1 then
   vim.g.python3_host_prog = vim.fn.expand("~/.venv/neovim/bin/python3")
 end

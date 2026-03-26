@@ -103,10 +103,12 @@ case "$OS" in
       log_warn "npm global prefix is '$NPM_PREFIX' (requires sudo) — redirecting to ~/.local"
       npm config set prefix ~/.local
     fi
-    npm install -g neovim
+    npm install -g neovim tree-sitter-cli
     # Use apt for pynvim — avoids pip IPv6 issues and doesn't touch user packages
     sudo apt-get install -y python3-pynvim
-    log_ok "neovim (npm → $(npm config get prefix)), pynvim (apt)"
+    # Remove stale venv if it exists — on Linux we use system Python, not a venv
+    [[ -d ~/.venv/neovim ]] && rm -rf ~/.venv/neovim && log_ok "Removed stale ~/.venv/neovim (using system Python on Linux)"
+    log_ok "neovim + tree-sitter-cli (npm), pynvim (apt)"
 
     log_step "Installing lazygit (interactive git TUI)..."
     LG_VER="$(curl -fsSL https://api.github.com/repos/jesseduffield/lazygit/releases/latest \
@@ -122,7 +124,7 @@ case "$OS" in
   Darwin)
     brew install ripgrep fd node lazygit fzf
     log_ok "ripgrep, fd, node, lazygit, fzf"
-    npm install -g neovim
+    npm install -g neovim tree-sitter-cli
     # macOS: use venv for pynvim (no apt available)
     python3 -m venv ~/.venv/neovim
     ~/.venv/neovim/bin/pip install pynvim
