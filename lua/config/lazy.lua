@@ -37,12 +37,36 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.lang.java" },        -- jdtls (Java)
 
     -- ── Editor enhancements ───────────────────────────────────────────────
-    { import = "lazyvim.plugins.extras.coding.yanky" },     -- yank history ring + better paste
-    { import = "lazyvim.plugins.extras.editor.dial" },      -- smart increment (booleans, dates, etc.)
-    { import = "lazyvim.plugins.extras.editor.inc-rename" },-- live rename preview via LSP
+    { import = "lazyvim.plugins.extras.coding.yanky" },       -- yank history ring + better paste
+    { import = "lazyvim.plugins.extras.coding.mini-surround" },-- surround: add/change/delete brackets, quotes, tags
+    { import = "lazyvim.plugins.extras.coding.neogen" },      -- generate docstrings for functions/classes
+    { import = "lazyvim.plugins.extras.editor.dial" },        -- smart increment (booleans, dates, etc.)
+    { import = "lazyvim.plugins.extras.editor.inc-rename" },  -- live rename preview via LSP
+    { import = "lazyvim.plugins.extras.editor.illuminate" },  -- highlight other occurrences of word under cursor
+    { import = "lazyvim.plugins.extras.editor.harpoon2" },    -- bookmark files and jump between them instantly
+    { import = "lazyvim.plugins.extras.editor.aerial" },      -- symbol browser sidebar (functions, classes, etc.)
+    { import = "lazyvim.plugins.extras.editor.refactoring" }, -- extract function/variable, inline variable
+    { import = "lazyvim.plugins.extras.ui.treesitter-context" },-- pin current function/class at top when scrolled
+    { import = "lazyvim.plugins.extras.ui.indent-blankline" },-- indent guide lines
+
+    -- ── Linting & formatting ──────────────────────────────────────────────
+    { import = "lazyvim.plugins.extras.linting.eslint" },     -- ESLint as LSP (JS/TS inline errors)
+
+    -- ── Debugging ────────────────────────────────────────────────────────
+    { import = "lazyvim.plugins.extras.dap.core" },           -- debugger UI: breakpoints, step, variable inspector
+
+    -- ── Utilities ────────────────────────────────────────────────────────
+    { import = "lazyvim.plugins.extras.util.rest" },          -- HTTP client: write .http files, send requests inline
 
     -- ── AI ────────────────────────────────────────────────────────────────
-    { import = "lazyvim.plugins.extras.ai.claudecode" },    -- Claude Code integration
+    { import = "lazyvim.plugins.extras.ai.claudecode" },      -- Claude Code integration
+
+    -- ── Language extras (additional) ──────────────────────────────────────
+    { import = "lazyvim.plugins.extras.lang.yaml" },          -- YAML LSP + SchemaStore (k8s, GH Actions, etc.)
+    { import = "lazyvim.plugins.extras.lang.toml" },          -- TOML LSP (Cargo.toml, pyproject.toml, etc.)
+    { import = "lazyvim.plugins.extras.lang.markdown" },      -- markdown render + preview + linting
+    { import = "lazyvim.plugins.extras.lang.docker" },        -- Dockerfile LSP + treesitter
+    { import = "lazyvim.plugins.extras.lang.sql" },           -- SQL LSP + vim-dadbod database UI
 
     -- ── Your custom plugins ────────────────────────────────────────────────
     -- Drop any .lua file into lua/plugins/ and it will be auto-imported.
