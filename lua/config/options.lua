@@ -33,10 +33,12 @@ vim.opt.updatetime = 250        -- faster CursorHold events (ms) — speeds up L
 vim.g.loaded_perl_provider = 0  -- Perl not needed
 vim.g.loaded_ruby_provider = 0  -- Ruby not needed
 
--- Python provider: use isolated venv so pynvim doesn't touch system packages
--- Windows uses Scripts/python, Linux/macOS use bin/python3
+-- Python provider:
+--   Windows        → isolated venv (Scripts/python)
+--   macOS          → isolated venv (bin/python3), if it exists
+--   Linux          → system Python (python3-pynvim installed via apt, no override needed)
 if vim.fn.has("win32") == 1 then
   vim.g.python3_host_prog = vim.fn.expand("~/.venv/neovim/Scripts/python")
-else
+elseif vim.fn.executable(vim.fn.expand("~/.venv/neovim/bin/python3")) == 1 then
   vim.g.python3_host_prog = vim.fn.expand("~/.venv/neovim/bin/python3")
 end
