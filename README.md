@@ -27,7 +27,23 @@ Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
 irm https://raw.githubusercontent.com/dmytrodudnyk-rgb/nvim-dotfiles/main/bootstrap.ps1 | iex
 ```
 
-After the script finishes, read the **Manual steps required** section it prints (mainly: set the terminal font), then run `nvim`.
+After the script finishes, read the **Manual steps required** section it prints, then run `nvim`.
+
+### Font setup (required)
+
+The bootstrap script installs JetBrainsMono Nerd Font automatically, but you need to select it in your terminal:
+
+1. **Close and reopen your terminal** — font lists are only refreshed on startup
+2. Open your terminal's font settings and search for **`JetBrainsMono Nerd Font Mono`**
+3. Select it and save
+
+> Without a Nerd Font, icons in the file tree, statusline, and git signs will show as garbled squares instead of glyphs.
+
+If the font still doesn't appear after restarting, refresh the font cache manually:
+```bash
+fc-cache -fv && sudo fc-cache -fv
+```
+Then restart the terminal again.
 
 ## Update
 

@@ -124,12 +124,12 @@ case "$OS" in
     rm -f /tmp/JetBrainsMono.tar.xz
     fc-cache -fv >/dev/null
     log_ok "JetBrainsMono Nerd Font installed → ~/.local/share/fonts/"
-    add_step "Set your terminal font to 'JetBrainsMono Nerd Font Mono' in your terminal's settings"
+    add_step "Set your terminal font to 'JetBrainsMono Nerd Font Mono' in your terminal's settings. If the font doesn't appear in the list, close and reopen the terminal — the font list is only refreshed on startup. Search for 'JetBrainsMono' in the font picker."
     ;;
   Darwin)
     brew install --cask font-jetbrains-mono-nerd-font
     log_ok "JetBrainsMono Nerd Font installed (available system-wide)"
-    add_step "Set your terminal font to 'JetBrainsMono Nerd Font Mono' in your terminal's preferences"
+    add_step "Set your terminal font to 'JetBrainsMono Nerd Font Mono' in your terminal's preferences. If the font doesn't appear in the list, close and reopen the terminal — the font list is only refreshed on startup. Search for 'JetBrainsMono' in the font picker."
     ;;
 esac
 
