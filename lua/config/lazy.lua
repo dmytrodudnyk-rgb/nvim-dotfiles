@@ -48,6 +48,7 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.editor.refactoring" }, -- extract function/variable, inline variable
     { import = "lazyvim.plugins.extras.ui.treesitter-context" },-- pin current function/class at top when scrolled
     { import = "lazyvim.plugins.extras.ui.indent-blankline" },-- indent guide lines
+    { import = "lazyvim.plugins.extras.ui.mini-animate" },    -- smooth scroll + cursor + window animations
 
     -- ── Linting & formatting ──────────────────────────────────────────────
     { import = "lazyvim.plugins.extras.linting.eslint" },     -- ESLint as LSP (JS/TS inline errors)
