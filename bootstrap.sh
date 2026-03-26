@@ -86,8 +86,8 @@ log_step "Installing system dependencies..."
 case "$OS" in
   Linux)
     sudo apt-get update -qq
-    sudo apt-get install -y ripgrep fd-find curl unzip build-essential xclip
-    log_ok "ripgrep, fd-find, curl, unzip, build-essential, xclip"
+    sudo apt-get install -y ripgrep fd-find curl unzip build-essential xclip fzf python3-pip python3-venv
+    log_ok "ripgrep, fd-find, curl, unzip, build-essential, xclip, fzf"
 
     if ! command -v node &>/dev/null; then
       log_step "Installing Node.js LTS (required for TypeScript and Python LSPs)..."
@@ -95,6 +95,12 @@ case "$OS" in
       sudo apt-get install -y nodejs
     fi
     log_ok "Node.js $(node --version)"
+
+    log_step "Installing Neovim provider packages..."
+    npm install -g neovim
+    python3 -m venv ~/.venv/neovim
+    ~/.venv/neovim/bin/pip install pynvim
+    log_ok "neovim (npm), pynvim (isolated venv at ~/.venv/neovim)"
 
     log_step "Installing lazygit (interactive git TUI)..."
     LG_VER="$(curl -fsSL https://api.github.com/repos/jesseduffield/lazygit/releases/latest \
@@ -108,8 +114,12 @@ case "$OS" in
     ;;
 
   Darwin)
-    brew install ripgrep fd node lazygit
-    log_ok "ripgrep, fd, node, lazygit"
+    brew install ripgrep fd node lazygit fzf
+    log_ok "ripgrep, fd, node, lazygit, fzf"
+    npm install -g neovim
+    python3 -m venv ~/.venv/neovim
+    ~/.venv/neovim/bin/pip install pynvim
+    log_ok "neovim (npm), pynvim (isolated venv at ~/.venv/neovim)"
     ;;
 esac
 

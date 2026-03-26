@@ -28,3 +28,10 @@ vim.opt.wrap = false            -- don't soft-wrap long lines
 vim.opt.undofile = true         -- persist undo history across sessions
 vim.opt.swapfile = false        -- disable swap files (use undofile instead)
 vim.opt.updatetime = 250        -- faster CursorHold events (ms) — speeds up LSP hints
+
+-- Disable unused providers to suppress checkhealth warnings
+vim.g.loaded_perl_provider = 0  -- Perl not needed
+vim.g.loaded_ruby_provider = 0  -- Ruby not needed
+
+-- Python provider: use isolated venv so pynvim doesn't touch system packages
+vim.g.python3_host_prog = vim.fn.expand("~/.venv/neovim/bin/python3")

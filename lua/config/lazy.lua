@@ -56,6 +56,10 @@ require("lazy").setup({
     notify = false,  -- don't pop up a notification on every check
   },
 
+  rocks = {
+    enabled = false, -- no plugins require luarocks; disables hererocks install
+  },
+
   performance = {
     rtp = {
       -- Disable unused built-in Neovim plugins to speed up startup
