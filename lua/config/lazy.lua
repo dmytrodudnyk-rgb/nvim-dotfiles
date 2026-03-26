@@ -41,6 +41,9 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.editor.dial" },      -- smart increment (booleans, dates, etc.)
     { import = "lazyvim.plugins.extras.editor.inc-rename" },-- live rename preview via LSP
 
+    -- ── AI ────────────────────────────────────────────────────────────────
+    { import = "lazyvim.plugins.extras.ai.claudecode" },    -- Claude Code integration
+
     -- ── Your custom plugins ────────────────────────────────────────────────
     -- Drop any .lua file into lua/plugins/ and it will be auto-imported.
     { import = "plugins" },

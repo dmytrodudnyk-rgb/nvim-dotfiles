@@ -120,7 +120,7 @@ This updates Neovim, lazygit, system packages, all plugins, and all LSP servers 
 | `gi` | Go to implementation |
 | `K` | Show hover documentation |
 | `<leader>ca` | Code action (fix, refactor, etc.) |
-| `<leader>cr` | Rename symbol |
+| `<leader>cr` | Rename symbol (live preview across all references) |
 | `<leader>cd` | Show diagnostics for current line |
 | `]d` / `[d` | Jump to next / previous diagnostic |
 
@@ -143,6 +143,30 @@ This updates Neovim, lazygit, system packages, all plugins, and all LSP servers 
 | `gbc` | Toggle block comment |
 | `<Tab>` / `<S-Tab>` | Next / previous completion item |
 | `<CR>` | Confirm selected completion |
+| `<C-a>` / `<C-x>` | Smart increment / decrement (numbers, booleans, dates, hex…) |
+| `g<C-a>` / `g<C-x>` | Sequential increment on visual selection |
+
+### Yank & Paste
+
+| Key | Action |
+|-----|--------|
+| `p` / `P` | Paste (cursor stays in place after yank) |
+| `<C-p>` / `<C-n>` | Cycle through yank history after paste |
+| `<leader>p` | Open yank history picker |
+
+### AI (Claude Code)
+
+| Key | Action |
+|-----|--------|
+| `<leader>ac` | Toggle Claude Code pane |
+| `<leader>af` | Focus Claude pane |
+| `<leader>ar` | Resume previous Claude session |
+| `<leader>aC` | Continue last conversation |
+| `<leader>ab` | Add current buffer to Claude's context |
+| `<leader>as` | Send visual selection to Claude |
+| `<leader>as` (neo-tree) | Add file under cursor to Claude's context |
+| `<leader>aa` | Accept Claude's proposed diff |
+| `<leader>ad` | Deny Claude's proposed diff |
 
 ### Windows & Buffers
 
