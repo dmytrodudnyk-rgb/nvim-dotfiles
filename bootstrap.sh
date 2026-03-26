@@ -86,8 +86,8 @@ log_step "Installing system dependencies..."
 case "$OS" in
   Linux)
     sudo apt-get update -qq
-    sudo apt-get install -y ripgrep fd-find curl unzip build-essential
-    log_ok "ripgrep, fd-find, curl, unzip, build-essential"
+    sudo apt-get install -y ripgrep fd-find curl unzip build-essential xclip
+    log_ok "ripgrep, fd-find, curl, unzip, build-essential, xclip"
 
     if ! command -v node &>/dev/null; then
       log_step "Installing Node.js LTS (required for TypeScript and Python LSPs)..."
