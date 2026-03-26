@@ -36,6 +36,11 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.lang.clangd" },      -- clangd + clang-format (C/C++)
     { import = "lazyvim.plugins.extras.lang.java" },        -- jdtls (Java)
 
+    -- ── Editor enhancements ───────────────────────────────────────────────
+    { import = "lazyvim.plugins.extras.coding.yanky" },     -- yank history ring + better paste
+    { import = "lazyvim.plugins.extras.editor.dial" },      -- smart increment (booleans, dates, etc.)
+    { import = "lazyvim.plugins.extras.editor.inc-rename" },-- live rename preview via LSP
+
     -- ── Your custom plugins ────────────────────────────────────────────────
     -- Drop any .lua file into lua/plugins/ and it will be auto-imported.
     { import = "plugins" },
