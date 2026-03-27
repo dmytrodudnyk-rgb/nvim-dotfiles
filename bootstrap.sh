@@ -50,7 +50,7 @@ log_ok "git $(git --version | cut -d' ' -f3)"
 # ── 2. Neovim ────────────────────────────────────────────────────────────────
 log_step "Installing Neovim..."
 if command -v nvim &>/dev/null; then
-  NVIM_VER="$(nvim --version | head -1 | grep -oP '\d+\.\d+\.\d+')"
+  NVIM_VER="$(nvim --version | head -1 | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')"
   log_warn "Neovim $NVIM_VER is already installed — skipping. Run 'nvim-update' to upgrade to the latest version."
 else
   case "$OS" in
@@ -223,7 +223,7 @@ printf '\e[1;32m  Setup complete!\e[0m\n'
 printf '\e[1;32m══════════════════════════════════════════\e[0m\n'
 
 printf '\n\e[1mInstalled:\e[0m\n'
-printf '  • Neovim %s\n' "$(nvim --version | head -1 | grep -oP '\d+\.\d+\.\d+')"
+printf '  • Neovim %s\n' "$(nvim --version | head -1 | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')"
 printf '  • LazyVim distribution (plugins via lazy.nvim)\n'
 printf '  • LSP servers: pyright, ruff-lsp, ts_ls, clangd, jdtls, kotlin-language-server\n'
 printf '  • lazygit — open inside nvim with <Space>gg\n'

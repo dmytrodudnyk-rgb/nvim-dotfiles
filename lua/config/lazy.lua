@@ -95,6 +95,8 @@ require("lazy").setup({
 
   performance = {
     rtp = {
+      -- Treesitter installs parsers here; lazy.nvim's rtp reset strips it by default
+      paths = { vim.fn.stdpath("data") .. "/site" },
       -- Disable unused built-in Neovim plugins to speed up startup
       disabled_plugins = {
         "gzip",
