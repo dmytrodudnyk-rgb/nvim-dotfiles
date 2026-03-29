@@ -1,6 +1,6 @@
 #Requires -Version 5.1
 # ============================================================
-# nvim-dotfiles update — Windows (native)
+# nvim-dotfiles update -- Windows (native)
 # Updates: all Scoop packages (neovim, lazygit, tools, fonts),
 #          Neovim plugins, and LSP servers
 # Usage: nvim-update.ps1
@@ -11,9 +11,9 @@ function Log-Ok   { param($msg); Write-Host "  [OK] $msg" -ForegroundColor Green
 function Log-Warn { param($msg); Write-Host "  [WARN] $msg" -ForegroundColor Yellow }
 
 Write-Host ""
-Write-Host "╔═══════════════════════════════════════╗" -ForegroundColor Cyan
-Write-Host "║      nvim-dotfiles update             ║" -ForegroundColor Cyan
-Write-Host "╚═══════════════════════════════════════╝" -ForegroundColor Cyan
+Write-Host "+=======================================+" -ForegroundColor Cyan
+Write-Host "|      nvim-dotfiles update             |" -ForegroundColor Cyan
+Write-Host "+=======================================+" -ForegroundColor Cyan
 Write-Host ""
 
 # ── Scoop packages ────────────────────────────────────────────────────────────

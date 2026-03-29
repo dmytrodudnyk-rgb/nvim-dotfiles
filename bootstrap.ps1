@@ -1,7 +1,7 @@
 #Requires -Version 5.1
 # ============================================================
-# nvim-dotfiles bootstrap — Windows (native)
-# Uses Scoop package manager — no admin rights needed
+# nvim-dotfiles bootstrap -- Windows (native)
+# Uses Scoop package manager -- no admin rights needed
 # Usage (PowerShell):
 #   Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
 #   irm https://raw.githubusercontent.com/dmytrodudnyk-rgb/nvim-dotfiles/main/bootstrap.ps1 | iex
@@ -21,15 +21,15 @@ function Log-Err  { param($msg); Write-Host "[ERR] $msg" -ForegroundColor Red; e
 function Add-Step { param($s);   $ManualSteps.Add($s) | Out-Null }
 
 Write-Host ""
-Write-Host "╔═══════════════════════════════════════╗" -ForegroundColor Cyan
-Write-Host "║      nvim-dotfiles bootstrap          ║" -ForegroundColor Cyan
-Write-Host "╚═══════════════════════════════════════╝" -ForegroundColor Cyan
-Write-Host "Platform: Windows ($([System.Runtime.InteropServices.RuntimeInformation]::ProcessArchitecture))`n"
+Write-Host "+=======================================+" -ForegroundColor Cyan
+Write-Host "|      nvim-dotfiles bootstrap          |" -ForegroundColor Cyan
+Write-Host "+=======================================+" -ForegroundColor Cyan
+Write-Host "Platform: Windows ($env:PROCESSOR_ARCHITECTURE)`n"
 
 # ── 1. Scoop ─────────────────────────────────────────────────────────────────
 Log-Step "Checking Scoop (package manager)..."
 if (-not (Get-Command scoop -ErrorAction SilentlyContinue)) {
-    Log-Step "Scoop not found — installing Scoop..."
+    Log-Step "Scoop not found -- installing Scoop..."
     Invoke-RestMethod get.scoop.sh | Invoke-Expression
     # Reload PATH for the current session
     $env:PATH = [System.Environment]::GetEnvironmentVariable("PATH", "User") + ";" + $env:PATH
@@ -42,8 +42,8 @@ scoop bucket add extras 2>$null
 scoop bucket add nerd-fonts 2>$null
 Log-Ok "Buckets added"
 
-Log-Step "Installing tools: git, neovim, ripgrep, fd, lazygit, nodejs, fzf..."
-scoop install git neovim ripgrep fd lazygit nodejs fzf
+Log-Step "Installing tools: git, neovim, ripgrep, fd, lazygit, nodejs, python, fzf..."
+scoop install git neovim ripgrep fd lazygit nodejs python fzf
 Log-Ok "All tools installed"
 
 Log-Step "Installing Neovim provider packages..."
@@ -51,7 +51,7 @@ Log-Step "Installing Neovim provider packages..."
 # Check prefix just in case and redirect if needed
 $npmPrefix = npm config get prefix
 if ($npmPrefix -like "*Program Files*" -or $npmPrefix -like "*system*") {
-    Log-Warn "npm prefix '$npmPrefix' may require admin — redirecting to $env:APPDATA\npm"
+    Log-Warn "npm prefix '$npmPrefix' may require admin -- redirecting to $env:APPDATA\npm"
     npm config set prefix "$env:APPDATA\npm"
 }
 npm install -g neovim
@@ -66,24 +66,24 @@ Log-Ok "pynvim installed (isolated venv at ~/.venv/neovim)"
 Log-Step "Installing JetBrainsMono Nerd Font (required for icons in nvim)..."
 scoop install JetBrainsMono-NF
 Log-Ok "JetBrainsMono Nerd Font installed (current user)"
-Add-Step "In Windows Terminal: Settings > Profile > Appearance > Font face > set to 'JetBrainsMono NF'"
+Add-Step "In Windows Terminal: press Ctrl+, > Profiles > Defaults > Appearance > Font face > set to 'JetBrainsMono Nerd Font Mono'"
 
 # ── 4. Clone dotfiles ─────────────────────────────────────────────────────────
 Log-Step "Setting up Neovim config..."
 if (Test-Path $NVIM_CONFIG) {
     $backup = "$NVIM_CONFIG.bak.$((Get-Date).ToString('yyyyMMddHHmmss'))"
-    Log-Warn "Existing Neovim config found — backing up to: $backup"
+    Log-Warn "Existing config found -- backing up to: $backup"
     Move-Item $NVIM_CONFIG $backup
 }
 git clone $DOTFILES_REPO $NVIM_CONFIG
-Log-Ok "Config cloned → $NVIM_CONFIG"
+Log-Ok "Config cloned -> $NVIM_CONFIG"
 
 # ── 5. Install nvim-update script ─────────────────────────────────────────────
 Log-Step "Installing nvim-update script..."
 $binDir = "$HOME\bin"
 New-Item -ItemType Directory -Force $binDir | Out-Null
 Copy-Item "$NVIM_CONFIG\update.ps1" "$binDir\nvim-update.ps1"
-Log-Ok "nvim-update.ps1 installed → $binDir"
+Log-Ok "nvim-update.ps1 installed -> $binDir"
 
 # Add ~/bin to user PATH if not already there
 $userPath = [Environment]::GetEnvironmentVariable("PATH", "User")
@@ -97,7 +97,7 @@ if ($userPath -notlike "*$binDir*") {
 }
 
 # ── 6. Bootstrap plugins via lazy.nvim (headless) ─────────────────────────────
-Log-Step "Installing Neovim plugins (headless — this may take 1–2 minutes)..."
+Log-Step "Installing Neovim plugins (headless -- this may take 1-2 minutes)..."
 try {
     nvim --headless "+Lazy! sync" +qa 2>$null
     Log-Ok "All plugins installed"
@@ -128,7 +128,7 @@ $nvimVer = (nvim --version | Select-Object -First 1) -replace 'NVIM v', ''
 Write-Host "  * Neovim $nvimVer"
 Write-Host "  * LazyVim distribution (plugins via lazy.nvim)"
 Write-Host "  * LSP servers: pyright, ruff-lsp, ts_ls, clangd, jdtls, kotlin-language-server"
-Write-Host "  * lazygit — open inside nvim with <Space>gg"
+Write-Host "  * lazygit -- open inside nvim with <Space>gg"
 Write-Host "  * JetBrainsMono Nerd Font"
 
 if ($ManualSteps.Count -gt 0) {

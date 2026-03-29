@@ -39,6 +39,11 @@ vim.g.loaded_ruby_provider = 0  -- Ruby not needed
 --   Linux    → system Python (python3-pynvim via apt, no override needed)
 if vim.fn.has("win32") == 1 then
   vim.g.python3_host_prog = vim.fn.expand("~/.venv/neovim/Scripts/python")
+  -- Prefer Scoop's GCC over Strawberry Perl's bundled GCC for treesitter compilation
+  local scoop_gcc = vim.fn.expand("~/scoop/apps/gcc/current/bin")
+  if vim.fn.isdirectory(scoop_gcc) == 1 then
+    vim.env.CC = scoop_gcc .. "/gcc.exe"
+  end
 elseif vim.fn.has("mac") == 1 then
   vim.g.python3_host_prog = vim.fn.expand("~/.venv/neovim/bin/python3")
 end

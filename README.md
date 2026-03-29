@@ -191,6 +191,46 @@ This updates Neovim, lazygit, system packages, all plugins, and all LSP servers 
 
 ---
 
+## Troubleshooting
+
+### Windows: bootstrap.ps1 fails with parse errors (PowerShell 5.1)
+
+PowerShell 5.1 reads `.ps1` files as Windows-1252, not UTF-8. If the script contains Unicode characters (em dashes, box-drawing chars), byte `0x94` is interpreted as `"` which breaks string parsing. The fix is to keep all `.ps1` files ASCII-only.
+
+### Windows: Treesitter parser compilation fails (`cannot open output file ... Invalid argument`)
+
+If you have **Strawberry Perl** installed, its bundled GCC (`C:\Strawberry\c\bin`) may be picked up instead of a proper compiler. Its old linker can't handle the `\\?\` extended-length paths that Neovim uses.
+
+**Fix:** Install GCC via Scoop:
+```powershell
+scoop install gcc
+```
+The Neovim config automatically detects Scoop's GCC and sets `CC` to prefer it over Strawberry's. Restart nvim and parsers will recompile on launch.
+
+### Windows: Node.js provider warning ("Missing neovim npm package")
+
+If you use **nvm-windows** (nvm4w), it puts its own `npm` earlier in PATH than Scoop's. The bootstrap installs the `neovim` npm package under Scoop's node, but Neovim finds nvm4w's node which doesn't have it.
+
+**Fix:** Install the package under your active nvm node:
+```powershell
+npm install -g neovim
+```
+
+### Font icons show as squares
+
+The terminal needs a Nerd Font selected. After bootstrap:
+
+1. Close and reopen your terminal (font lists refresh on startup)
+2. **Windows Terminal:** press `Ctrl+,` > Profiles > Defaults > Appearance > Font face > `JetBrainsMono Nerd Font Mono`
+3. **Other terminals:** open font settings and select `JetBrainsMono Nerd Font Mono`
+
+If the font still doesn't appear (Linux/macOS):
+```bash
+fc-cache -fv && sudo fc-cache -fv
+```
+
+---
+
 ## Portability
 
 The Lua config is **platform-agnostic** — the same files work on Linux, macOS, and Windows. Only the bootstrap/update scripts differ per platform.
