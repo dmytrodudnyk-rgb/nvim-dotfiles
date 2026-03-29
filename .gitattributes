@@ -1,0 +1,7 @@
+# Default: LF everywhere for cross-platform consistency
+* text=auto eol=lf
+
+# Windows scripts: keep CRLF so PowerShell and cmd behave correctly
+*.ps1 text eol=crlf
+*.cmd text eol=crlf
+*.bat text eol=crlf
