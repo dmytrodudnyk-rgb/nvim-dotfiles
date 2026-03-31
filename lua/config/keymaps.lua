@@ -26,3 +26,14 @@ map("v", ">", ">gv", { desc = "Indent right (stay in visual)" })
 
 -- ── Clear search highlight ────────────────────────────────────────────────────
 map("n", "<Esc>", "<Cmd>nohlsearch<CR>", { desc = "Clear search highlight" })
+
+-- ── Close all buffers ────────────────────────────────────────────────────────
+map("n", "<leader>bD", "<Cmd>bufdo bdelete<CR>", { desc = "Close all buffers" })
+
+-- ── Terminal escape ──────────────────────────────────────────────────────────
+map("t", "jk", "<C-\\><C-n>", { desc = "Exit terminal mode" })
+
+-- ── Tabs ─────────────────────────────────────────────────────────────────────
+-- Open new tab with current buffer (instead of empty)
+map("n", "<leader><tab><tab>", "<Cmd>tab split<CR>", { desc = "New tab (current buffer)" })
+map("n", "<leader><tab>n", "<Cmd>tab split<CR>", { desc = "New tab (current buffer)" })
