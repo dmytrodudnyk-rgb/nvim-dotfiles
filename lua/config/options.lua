@@ -47,3 +47,8 @@ if vim.fn.has("win32") == 1 then
 elseif vim.fn.has("mac") == 1 then
   vim.g.python3_host_prog = vim.fn.expand("~/.venv/neovim/bin/python3")
 end
+
+if vim.fn.has("mac") == 1 then
+    vim.o.shell = "zsh"
+    vim.o.shellcmdflag = "-i -c 'exec fish'"
+end
