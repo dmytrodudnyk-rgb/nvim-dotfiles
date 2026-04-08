@@ -1,5 +1,4 @@
 # macOS
 .DS_Store
 
-# lazy-lock.json is intentionally committed — it pins exact plugin versions
-# across machines. Do not add it here.
+.claude/settings.local.json

@@ -42,8 +42,8 @@ scoop bucket add extras 2>$null
 scoop bucket add nerd-fonts 2>$null
 Log-Ok "Buckets added"
 
-Log-Step "Installing tools: git, neovim, ripgrep, fd, lazygit, nodejs, python, fzf..."
-scoop install git neovim ripgrep fd lazygit nodejs python fzf
+Log-Step "Installing tools: git, neovim, ripgrep, fd, lazygit, nodejs, python, fzf, pwsh..."
+scoop install git neovim ripgrep fd lazygit nodejs python fzf pwsh
 Log-Ok "All tools installed"
 
 Log-Step "Installing Neovim provider packages..."
