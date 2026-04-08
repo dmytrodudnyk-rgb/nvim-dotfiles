@@ -6,6 +6,15 @@ return {
     opts = {
       explorer = {
         replace_netrw = true,
+        ignored = true,
+        exclude = {
+          "node_modules",
+          ".git",
+          "dist",
+          "build",
+          ".next",
+          "__pycache__",
+        },
       },
       picker = {
         sources = {
@@ -18,6 +27,10 @@ return {
           },
         },
       },
+      --@type snacks.Config
+      terminal = {
+        shell = "zsh -i -c \"exec fish\""
+      }
     },
   },
 }

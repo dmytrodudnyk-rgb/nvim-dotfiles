@@ -31,6 +31,9 @@ vim.opt.undofile = true         -- persist undo history across sessions
 vim.opt.swapfile = false        -- disable swap files (use undofile instead)
 vim.opt.updatetime = 250        -- faster CursorHold events (ms) — speeds up LSP hints
 
+-- Per-project config
+vim.o.exrc = true               -- load .nvim.lua from project directories
+
 -- Disable unused providers to suppress checkhealth warnings
 vim.g.loaded_perl_provider = 0  -- Perl not needed
 vim.g.loaded_ruby_provider = 0  -- Ruby not needed
