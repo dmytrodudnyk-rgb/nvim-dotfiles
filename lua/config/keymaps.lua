@@ -36,11 +36,15 @@ map("t", "jk", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 -- jk is used to exit terminal mode instead of <Esc>.
 map("t", "<Esc>", function()
   local chan = vim.b.terminal_job_id
-  if chan then vim.api.nvim_chan_send(chan, "\27") end
+  if chan then
+    vim.api.nvim_chan_send(chan, "\27")
+  end
 end, { desc = "Pass Escape to terminal" })
 map("t", "<S-Tab>", function()
   local chan = vim.b.terminal_job_id
-  if chan then vim.api.nvim_chan_send(chan, "\27[Z") end
+  if chan then
+    vim.api.nvim_chan_send(chan, "\27[Z")
+  end
 end, { desc = "Pass Shift-Tab to terminal" })
 
 -- ── Tabs ─────────────────────────────────────────────────────────────────────
@@ -50,10 +54,16 @@ map("n", "<leader><tab>n", "<Cmd>tab split<CR>", { desc = "New tab (current buff
 
 -- ── Zoom ─────────────────────────────────────────────────────────────────────
 -- Z toggles the current window to fill the screen (ZZ/ZQ are overridden).
-map("n", "Z", function() require("snacks").toggle.zoom():toggle() end, { desc = "Zoom window" })
+map("n", "Z", function()
+  require("snacks").toggle.zoom():toggle()
+end, { desc = "Zoom window" })
 
 -- ── File search ──────────────────────────────────────────────────────────────
 -- Search files in CWD by default
 map("n", "<leader><space>", function()
   require("snacks").picker.files({ cwd = vim.uv.cwd() })
 end, { desc = "Find Files (cwd)" })
+
+-- ── Theme Hub ────────────────────────────────────────────────────────────────
+-- Replaces default Colorschemes
+map("n", "<leader>uC", "<Cmd>ThemeHub<CR>", { desc = "Theme Hub" })

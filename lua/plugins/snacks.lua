@@ -27,10 +27,6 @@ return {
           },
         },
       },
-      --@type snacks.Config
-      terminal = {
-        shell = "zsh -i -c \"exec fish\""
-      }
     },
   },
 }

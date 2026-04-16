@@ -6,37 +6,37 @@
 -- ============================================================
 
 -- Line numbers
-vim.opt.relativenumber = true   -- relative line numbers (easier for j/k motion)
-vim.opt.number = true           -- also show the absolute number on the current line
+vim.opt.relativenumber = true -- relative line numbers (easier for j/k motion)
+vim.opt.number = true -- also show the absolute number on the current line
 
 -- Tabs & indentation
-vim.opt.tabstop = 4             -- visual width of a tab character
-vim.opt.shiftwidth = 4          -- spaces used for each indent level
-vim.opt.expandtab = true        -- use spaces instead of tabs
+vim.opt.tabstop = 4 -- visual width of a tab character
+vim.opt.shiftwidth = 4 -- spaces used for each indent level
+vim.opt.expandtab = true -- use spaces instead of tabs
 
 -- Search
-vim.opt.ignorecase = true       -- case-insensitive search...
-vim.opt.smartcase = true        -- ...unless the query contains uppercase
+vim.opt.ignorecase = true -- case-insensitive search...
+vim.opt.smartcase = true -- ...unless the query contains uppercase
 
 -- Appearance
-vim.opt.termguicolors = true    -- enable 24-bit color
-vim.opt.scrolloff = 8           -- keep 8 lines visible above/below the cursor
-vim.opt.sidescrolloff = 8       -- keep 8 columns visible left/right of the cursor
-vim.opt.wrap = false            -- don't soft-wrap long lines
+vim.opt.termguicolors = true -- enable 24-bit color
+vim.opt.scrolloff = 8 -- keep 8 lines visible above/below the cursor
+vim.opt.sidescrolloff = 8 -- keep 8 columns visible left/right of the cursor
+vim.opt.wrap = false -- don't soft-wrap long lines
 
 require("config.dim_inactive")
 
 -- Files
-vim.opt.undofile = true         -- persist undo history across sessions
-vim.opt.swapfile = false        -- disable swap files (use undofile instead)
-vim.opt.updatetime = 250        -- faster CursorHold events (ms) — speeds up LSP hints
+vim.opt.undofile = true -- persist undo history across sessions
+vim.opt.swapfile = false -- disable swap files (use undofile instead)
+vim.opt.updatetime = 250 -- faster CursorHold events (ms) — speeds up LSP hints
 
 -- Per-project config
-vim.o.exrc = true               -- load .nvim.lua from project directories
+vim.o.exrc = true -- load .nvim.lua from project directories
 
 -- Disable unused providers to suppress checkhealth warnings
-vim.g.loaded_perl_provider = 0  -- Perl not needed
-vim.g.loaded_ruby_provider = 0  -- Ruby not needed
+vim.g.loaded_perl_provider = 0 -- Perl not needed
+vim.g.loaded_ruby_provider = 0 -- Ruby not needed
 
 -- Python provider:
 --   Windows  → isolated venv (Scripts/python)
@@ -51,7 +51,8 @@ if vim.fn.has("win32") == 1 then
   end
   -- Use PowerShell 7 (pwsh) as the shell
   vim.o.shell = "pwsh"
-  vim.o.shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;"
+  vim.o.shellcmdflag =
+    "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;"
   vim.o.shellredir = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
   vim.o.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
   vim.o.shellquote = ""
@@ -61,8 +62,7 @@ elseif vim.fn.has("mac") == 1 then
 end
 
 if vim.fn.has("mac") == 1 then
-  vim.o.shell = "zsh"
-  vim.o.shellcmdflag = "-i -c 'exec fish'"
+  vim.o.shell = "fish"
 end
 
 -- WezTerm tab title: "nvim - <cwd>"
