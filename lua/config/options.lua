@@ -34,6 +34,18 @@ vim.opt.updatetime = 250 -- faster CursorHold events (ms) — speeds up LSP hint
 -- Per-project config
 vim.o.exrc = true -- load .nvim.lua from project directories
 
+-- Filetype detection overrides.
+-- Neovim defaults `.m`→matlab and `.mm`→nroff; in an Objective-C codebase those
+-- are wrong (they keep sourcekit/clangd from attaching). Force the ObjC mapping.
+-- `.h` is intentionally left to Neovim's default (c/cpp → clangd); per-project
+-- ObjC-header routing lives in the project's `.nvim.lua` (exrc).
+vim.filetype.add({
+  extension = {
+    m = "objc",
+    mm = "objcpp",
+  },
+})
+
 -- Disable unused providers to suppress checkhealth warnings
 vim.g.loaded_perl_provider = 0 -- Perl not needed
 vim.g.loaded_ruby_provider = 0 -- Ruby not needed
