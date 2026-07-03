@@ -63,8 +63,9 @@ else
       log_ok "Downloading $FNAME..."
       curl -fsSLo /tmp/nvim.appimage \
         "https://github.com/neovim/neovim/releases/latest/download/${FNAME}"
-      chmod u+x /tmp/nvim.appimage
-      sudo mv /tmp/nvim.appimage /usr/local/bin/nvim
+      # Install to ~/.local/bin (user-scope, no sudo — matches the npm-prefix/font convention)
+      install -Dm755 /tmp/nvim.appimage ~/.local/bin/nvim
+      rm -f /tmp/nvim.appimage
       ;;
     Darwin)
       if ! command -v brew &>/dev/null; then
@@ -116,8 +117,9 @@ case "$OS" in
     curl -fsSLo /tmp/lazygit.tar.gz \
       "https://github.com/jesseduffield/lazygit/releases/download/v${LG_VER}/lazygit_${LG_VER}_Linux_x86_64.tar.gz"
     tar -xzf /tmp/lazygit.tar.gz -C /tmp lazygit
-    sudo mv /tmp/lazygit /usr/local/bin/lazygit
-    rm -f /tmp/lazygit.tar.gz
+    # Install to ~/.local/bin (user-scope, no sudo — matches the npm-prefix/font convention)
+    install -Dm755 /tmp/lazygit ~/.local/bin/lazygit
+    rm -f /tmp/lazygit.tar.gz /tmp/lazygit
     log_ok "lazygit v${LG_VER}"
     ;;
 
