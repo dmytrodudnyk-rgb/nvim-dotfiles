@@ -2,19 +2,21 @@
 -- Generates a dimmed copy of every highlight group on ColorScheme/VimEnter,
 -- then applies them via winhighlight on WinLeave and clears on WinEnter.
 -- Adjust the two factors below to control intensity (1.0 = no change, 0 = black).
-local FG = 0.65 -- foreground: how much to dim syntax colors, text, etc.
-local BG = 0.75 -- background: how much to dim window backgrounds
+local FG = 0.70 -- foreground: how much to dim syntax colors, text, etc.
+local BG = 0.60 -- background: how much to dim window backgrounds
 
 local _winhighlight = ""
 
 local function dim_color(color, factor)
-  if not color then return nil end
+  if not color then
+    return nil
+  end
   local r = math.floor(color / 65536)
   local g = math.floor((color % 65536) / 256)
   local b = color % 256
   return math.max(0, math.floor(r * factor)) * 65536
-       + math.max(0, math.floor(g * factor)) * 256
-       + math.max(0, math.floor(b * factor))
+    + math.max(0, math.floor(g * factor)) * 256
+    + math.max(0, math.floor(b * factor))
 end
 
 local function rebuild()
@@ -24,7 +26,9 @@ local function rebuild()
       local ok, hl = pcall(vim.api.nvim_get_hl, 0, { name = name, link = false })
       if ok and (hl.fg or hl.bg) then
         local dim = {}
-        for k, v in pairs(hl) do dim[k] = v end
+        for k, v in pairs(hl) do
+          dim[k] = v
+        end
         dim.fg = dim_color(hl.fg, FG)
         dim.bg = dim_color(hl.bg, BG)
         vim.api.nvim_set_hl(0, "Dim__" .. name, dim)
@@ -36,5 +40,13 @@ local function rebuild()
 end
 
 vim.api.nvim_create_autocmd({ "ColorScheme", "VimEnter" }, { callback = rebuild })
-vim.api.nvim_create_autocmd("WinLeave", { callback = function() vim.wo.winhighlight = _winhighlight end })
-vim.api.nvim_create_autocmd("WinEnter", { callback = function() vim.wo.winhighlight = "" end })
+vim.api.nvim_create_autocmd("WinLeave", {
+  callback = function()
+    vim.wo.winhighlight = _winhighlight
+  end,
+})
+vim.api.nvim_create_autocmd("WinEnter", {
+  callback = function()
+    vim.wo.winhighlight = ""
+  end,
+})
